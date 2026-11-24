@@ -125,5 +125,13 @@ d7:{bg:'#F8EFF3',k:'#D23F78',seg:[
  {v:'grid',n:18,h:{es:['¿Y solo de la','última semana?'],ca:['I només de','l’última setmana?']},src:{"es": "Fuente: BrightLocal, encuesta 2026 (EE. UU.)", "ca": "Font: BrightLocal, enquesta 2026 (EUA)"},
   cap:{es:'Y dieciocho solo se dejan convencer por las de la última semana.',ca:'I 18 només es deixen convèncer per les de l’última setmana.'},key:{es:['dieciocho'],ca:['18']}},
  {v:'end',title:{es:'¿De cuándo es tu última reseña?',ca:'De quan és la teva última ressenya?'},fs:84,
-  cap:{es:'Pide reseñas cada semana. Y si quieres conectar tu web y tus redes con Google, en Bekora es nuestra especialidad. La web, diez días gratis.',ca:'Demana ressenyes cada setmana. I si vols connectar la web i les xarxes amb Google, a Bekora és la nostra especialitat. La web, 10 dies gratis.'},key:{es:['google,','gratis.'],ca:['google,','gratis.']}}]}
+  cap:{es:'Pide reseñas cada semana. Y si quieres conectar tu web y tus redes con Google, en Bekora es nuestra especialidad. La web, diez días gratis.',ca:'Demana ressenyes cada setmana. I si vols connectar la web i les xarxes amb Google, a Bekora és la nostra especialitat. La web, 10 dies gratis.'},key:{es:['google,','gratis.'],ca:['google,','gratis.']}}]},
+t1:{seg:[
+ {fx:[[0.15,'pop'],[2.3,'scratch']],cap:{es:'Esta es Marta. Hace los mejores pasteles del barrio... y nadie lo sabe.',ca:'Aquesta és la Marta. Fa els millors pastissos del barri... i ningú ho sap.'},key:{es:['nadie'],ca:['ningú']}},
+ {fx:[[0.3,'type'],[1.0,'pop'],[1.25,'pop'],[1.5,'buzz']],cap:{es:'Cada día alguien busca pastelería cerca en el móvil. Y Marta no aparece.',ca:'Cada dia algú busca pastisseria a prop al mòbil. I la Marta no hi surt.'},key:{es:['no','aparece.'],ca:['no','surt.']}},
+ {fx:[[0.3,'steps'],[1.0,'wind']],cap:{es:'Así que se van a la de enfrente. Su tienda, vacía.',ca:'Així que se’n van a la del davant. La seva botiga, buida.'},key:{es:['vacía.'],ca:['buida.']}},
+ {fx:[[0.5,'wind'],[1.2,'fail']],cap:{es:'Probó con folletos. Mala idea.',ca:'Va provar amb fulletons. Mala idea.'},key:{es:['mala','idea.'],ca:['mala','idea.']}},
+ {flash:1,sfx:'rise',fx:[[0.1,'boom'],[1.1,'pop'],[1.4,'ding'],[1.7,'ding'],[2.0,'ding']],cap:{es:'Hasta que llegó a Bekora. Aquí puedes tener tu web, salir en Google y probarla diez días gratis.',ca:'Fins que va arribar a Bekora. Aquí pots tenir la teva web, sortir a Google i provar-la 10 dies gratis.'},key:{es:['bekora.','gratis.'],ca:['bekora.','gratis.']}},
+ {fx:[[0.1,'cheer']],cap:{es:'Ahora la cola llega hasta la esquina.',ca:'Ara la cua arriba fins a la cantonada.'},key:{es:['esquina.'],ca:['cantonada.']}},
+ {fx:[[0.5,'pop']],cap:{es:'¿Y tu negocio, sale en Google?',ca:'I el teu negoci, surt a Google?'},key:{es:['google?'],ca:['google?']}}]}
 };

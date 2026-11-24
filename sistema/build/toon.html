@@ -1,0 +1,97 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Unbounded;src:url(Unbounded.ttf);font-weight:200 900}
+@font-face{font-family:Inst;src:url(InstrumentSans.ttf);font-weight:400 700}
+@font-face{font-family:Mono;src:url(JetBrainsMono.ttf);font-weight:100 800}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#fff}
+#stage{position:absolute;inset:0}
+#stage svg{position:absolute;inset:0;width:1080px;height:1920px}
+#cap{position:absolute;left:60px;right:60px;top:1480px;text-align:center;z-index:20}
+#cap span{display:inline-block;font-family:Unbounded;font-weight:700;font-size:64px;letter-spacing:-.03em;line-height:1.2;margin:0 8px;color:#fff;opacity:.35;
+ -webkit-text-stroke:10px #16171B;paint-order:stroke fill}
+#cap span.on{opacity:1}#cap span.k{color:#FFD23F}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:30}
+</style></head><body><div id="stage"></div><div id="cap"></div><div id="flash"></div>
+<script src="cfg.js"></script><script src="durs.js"></script><script src="toons.js"></script>
+<script>
+const [LANG,ID]=(location.hash||'#es-t1').slice(1).split('-');
+const C=CFG[ID],SEG=C.seg,DU=(window.DURS&&window.DURS[ID])||SEG.map(s=>s.d||3),SC=TOON[ID];
+const T=k=>typeof k==='object'&&k&&!Array.isArray(k)?k[LANG]:k;
+// ---------- helpers ----------
+const cl=x=>Math.min(1,Math.max(0,x)),P=(t,a,b)=>cl((t-a)/(b-a));
+const oe=x=>x>=1?1:1-Math.pow(2,-10*x),io=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
+const sp=x=>x<=0?0:x>=1?1:1-Math.exp(-6*x)*Math.cos(9*x);
+const lerp=(a,b,k)=>a+(b-a)*k;
+window.H={cl,P,oe,io,sp,lerp,T,LANG};
+// mouth shapes
+function mouth(type,t){if(type==='talk'){const k=Math.floor(t*11)%4;type=['o','smile','flat','open'][k]}
+ return {smile:'<path d="M-26 0 Q0 26 26 0" stroke="#16171B" stroke-width="7" fill="none" stroke-linecap="round"/>',
+  big:'<path d="M-32 -4 Q0 46 32 -4 Z" fill="#16171B"/><path d="M-18 14 Q0 28 18 14" fill="#E8574A"/>',
+  sad:'<path d="M-24 14 Q0 -8 24 14" stroke="#16171B" stroke-width="7" fill="none" stroke-linecap="round"/>',
+  o:'<ellipse cx="0" cy="6" rx="14" ry="18" fill="#16171B"/>',
+  open:'<ellipse cx="0" cy="6" rx="22" ry="14" fill="#16171B"/>',
+  flat:'<path d="M-18 4 L18 4" stroke="#16171B" stroke-width="7" stroke-linecap="round"/>',
+  shock:'<ellipse cx="0" cy="10" rx="20" ry="28" fill="#16171B"/>'}[type]||''}
+const BROW={happy:[-8,8],sad:[18,-18],angry:[-22,22],shock:[-4,4],neutral:[0,0]};
+// character: x,y = feet position
+H.person=function(o){const s=o.s||1,t=o.t||0,ex=o.expr||'happy';
+ const bob=o.walk?Math.abs(Math.sin(t*10))*-14:Math.sin(t*2.2)*3;const blink=(Math.floor(t*10)%37===0)?.1:1;
+ const lean=o.lean||0;const look=o.look||0;
+ const legA=o.walk?Math.sin(t*10)*22:0;
+ const aL=o.armL!=null?o.armL:(o.walk?-Math.sin(t*10)*25:10),aR=o.armR!=null?o.armR:(o.walk?Math.sin(t*10)*25:-10);
+ const b=BROW[ex]||BROW.neutral;const flip=o.flip?-1:1;
+ return `<g transform="translate(${o.x},${o.y+bob}) scale(${s*flip},${s}) rotate(${lean})">
+ <g transform="rotate(${legA})"><rect x="-38" y="-150" width="30" height="150" rx="15" fill="${o.pants||'#2D3142'}"/><ellipse cx="-24" cy="-4" rx="30" ry="14" fill="#16171B"/></g>
+ <g transform="rotate(${-legA})"><rect x="8" y="-150" width="30" height="150" rx="15" fill="${o.pants||'#2D3142'}"/><ellipse cx="24" cy="-4" rx="30" ry="14" fill="#16171B"/></g>
+ <g transform="translate(-70,-330) rotate(${aL})"><rect x="-17" y="0" width="34" height="150" rx="17" fill="${o.shirt}"/><circle cx="0" cy="152" r="20" fill="${o.skin}"/></g>
+ <g transform="translate(70,-330) rotate(${aR})"><rect x="-17" y="0" width="34" height="150" rx="17" fill="${o.shirt}"/><circle cx="0" cy="152" r="20" fill="${o.skin}"/>${o.hold||''}</g>
+ <rect x="-80" y="-360" width="160" height="230" rx="60" fill="${o.shirt}"/>${o.apron?`<path d="M-50 -300 H50 V-140 Q0 -120 -50 -140Z" fill="${o.apron}"/>`:''}
+ <g transform="translate(0,-470)">
+  ${o.hairBack||''}
+  <circle r="110" fill="${o.skin}"/>
+  ${o.hair||''}
+  <g transform="translate(${look*14},0)">
+   <g transform="translate(-40,-10) scale(1,${blink})"><ellipse rx="24" ry="${ex==='shock'?32:28}" fill="#fff"/><circle cx="${look*6}" cy="4" r="${ex==='shock'?9:13}" fill="#16171B"/></g>
+   <g transform="translate(40,-10) scale(1,${blink})"><ellipse rx="24" ry="${ex==='shock'?32:28}" fill="#fff"/><circle cx="${look*6}" cy="4" r="${ex==='shock'?9:13}" fill="#16171B"/></g>
+   <path d="M-62 ${-52} L-20 ${-52+b[0]*-0.6}" transform="rotate(${b[0]} -40 -52)" stroke="#16171B" stroke-width="9" stroke-linecap="round"/>
+   <path d="M20 ${-52} L62 ${-52}" transform="rotate(${b[1]} 40 -52)" stroke="#16171B" stroke-width="9" stroke-linecap="round"/>
+   <circle cx="-70" cy="30" r="16" fill="#FF8FA3" opacity=".45"/><circle cx="70" cy="30" r="16" fill="#FF8FA3" opacity=".45"/>
+   <g transform="translate(0,50)">${mouth(o.mouth||'smile',t)}</g>
+  </g>${o.hat||''}
+ </g></g>`};
+H.hairBun=c=>`<circle cx="0" cy="-120" r="48" fill="${c}"/><path d="M-112 -10 Q-120 -120 0 -118 Q120 -120 112 -10 Q100 -70 0 -78 Q-100 -70 -112 -10Z" fill="${c}"/>`;
+H.hairShort=c=>`<path d="M-112 -20 Q-110 -125 0 -120 Q110 -125 112 -20 Q80 -80 30 -86 Q-40 -70 -112 -20Z" fill="${c}"/>`;
+H.hairLong=c=>`<path d="M-118 120 Q-140 -130 0 -122 Q140 -130 118 120 L95 120 Q100 -60 0 -80 Q-100 -60 -95 120Z" fill="${c}"/>`;
+H.cap=c=>`<path d="M-105 -50 Q0 -170 105 -50Z" fill="${c}"/><rect x="-10" y="-62" width="150" height="22" rx="11" fill="${c}"/>`;
+H.shop=o=>`<g transform="translate(${o.x},${o.y})">
+ <rect x="0" y="0" width="${o.w}" height="${o.h}" fill="${o.wall}"/>
+ <rect x="${o.w*.08}" y="40" width="${o.w*.84}" height="110" rx="20" fill="${o.signBg||'#16171B'}"/>
+ <text x="${o.w/2}" y="118" text-anchor="middle" font-family="Unbounded" font-weight="700" font-size="${o.fs||64}" fill="${o.signFg||'#fff'}">${o.name}</text>
+ ${Array.from({length:8},(_,i)=>`<path d="M${i*o.w/8} 170 h${o.w/8} v70 q-${o.w/16} 40 -${o.w/8} 0z" fill="${i%2?'#fff':o.awning}"/>`).join('')}
+ <rect x="${o.w*.08}" y="290" width="${o.w*.5}" height="${o.h-330}" rx="16" fill="#CFE8F5" stroke="#16171B" stroke-width="8"/>
+ <rect x="${o.w*.65}" y="290" width="${o.w*.27}" height="${o.h-290}" rx="10" fill="${o.door||'#8C5A3C'}" stroke="#16171B" stroke-width="8"/>
+ ${o.inside||''}</g>`;
+H.phone=o=>`<g transform="translate(${o.x},${o.y}) rotate(${o.r||0}) scale(${o.s||1})"><rect x="-170" y="-330" width="340" height="660" rx="50" fill="#16171B"/><rect x="-150" y="-300" width="300" height="600" rx="34" fill="#fff"/>${o.screen||''}</g>`;
+H.search=(q,rows,t)=>{const n=Math.floor(q.length*cl(t/0.9));return `<rect x="-130" y="-270" width="260" height="60" rx="30" fill="#F1F1F1"/><text x="-105" y="-231" font-family="Inst" font-weight="700" font-size="26" fill="#16171B">${q.slice(0,n)}</text>
+ ${rows.map((r,i)=>t>1.0+i*.25?`<g transform="translate(0,${-170+i*120})"><rect x="-130" y="0" width="260" height="100" rx="18" fill="${r.me?'#FFE3E0':'#F6F6F6'}" stroke="${r.me?'#E8574A':'none'}" stroke-width="4" stroke-dasharray="10 8"/><rect x="-115" y="15" width="70" height="70" rx="12" fill="${r.c}"/><text x="-32" y="48" font-family="Inst" font-weight="700" font-size="26" fill="#16171B">${r.n}</text><text x="-32" y="80" font-family="Inst" font-weight="600" font-size="21" fill="${r.me?'#E8574A':'#2FBF6B'}">${r.d}</text></g>`:'').join('')}`};
+H.sticker=(x,y,txt,bg,fg,k,rot=-4,fs=62)=>k<=0?'':`<g transform="translate(${x},${y}) rotate(${rot}) scale(${sp(k)})"><rect x="${-txt.length*fs*.34-36}" y="-58" width="${txt.length*fs*.68+72}" height="104" rx="28" fill="${bg}" stroke="#16171B" stroke-width="8"/><text y="18" text-anchor="middle" font-family="Unbounded" font-weight="700" font-size="${fs}" fill="${fg}">${txt}</text></g>`;
+H.confetti=(t,n=70,cols=['#FFD23F','#5EE08F','#FF6B9A','#4DA3FF'])=>Array.from({length:n},(_,i)=>{const x=(i*137.5)%1080,y=((t*600+i*97)%2100)-150,r=t*300+i*40;return `<rect x="${x}" y="${y}" width="22" height="34" rx="4" fill="${cols[i%cols.length]}" transform="rotate(${r} ${x+11} ${y+17})"/>`}).join('');
+H.tumble=(x,y,t)=>`<g transform="translate(${x},${y}) rotate(${t*300})"><circle r="60" fill="none" stroke="#B08850" stroke-width="7"/><path d="M-50 -20 Q0 40 50 -10 M-40 30 Q0 -50 45 25 M-20 -55 Q10 0 -10 55" stroke="#B08850" stroke-width="6" fill="none"/></g>`;
+H.badge=(x,y,k)=>k<=0?'':`<g transform="translate(${x},${y}) scale(${sp(k)})"><rect x="-260" y="-80" width="520" height="160" rx="50" fill="#16171B"/><image href="logo.png" x="-230" y="-55" width="110" height="110"/><text x="40" y="22" text-anchor="middle" font-family="Unbounded" font-weight="700" font-size="64" fill="#fff">Bekora</text></g>`;
+H.ground=(c,y=1380)=>`<rect x="0" y="${y}" width="1080" height="${1920-y}" fill="${c}"/>`;
+// ---------- timeline ----------
+let acc=0;const ST=SEG.map((s,i)=>{const o={t0:acc,t1:acc+DU[i],s,draw:SC[i]};acc+=DU[i];return o});
+window.DUR=acc+.4;
+const SFX=[];ST.forEach((o,i)=>{SFX.push({t:+o.t0.toFixed(3),type:i?(o.s.sfx||'swish'):'hit'});(o.s.fx||[]).forEach(f=>SFX.push({t:+(o.t0+f[0]).toFixed(3),type:f[1]}))});window.SFX=SFX;
+const stage=document.getElementById('stage'),capEl=document.getElementById('cap'),fl=document.getElementById('flash');
+window.seek=function(t){const o=ST.find(o=>t>=o.t0&&t<o.t1)||ST[ST.length-1];const lt=t-o.t0,du=o.t1-o.t0;
+ const r=o.draw(lt,du,t)||{};const z=(r.z||1)*(1+.07*(1-oe(P(lt,0,.2))));
+ stage.innerHTML=`<svg viewBox="0 0 1080 1920"><g transform="translate(540 ${r.cy||960}) scale(${z}) rotate(${r.rot||0}) translate(-540 ${-(r.cy||960)}) translate(${r.shake?Math.sin(t*90)*r.shake:0} 0)">${r.svg}</g></svg>`;
+ fl.style.opacity=o.s.flash?Math.max(0,1-lt/.12)*.8:0;
+ const words=T(o.s.cap).split(' ');const keys=(o.s.key&&T(o.s.key))||[];const sd=Math.max(.5,du-.3);
+ const ch=[];let cur=[];words.forEach((w,i)=>{cur.push(i);if(cur.length>=5||/[.,:?!]$/.test(w)&&cur.length>=2){ch.push(cur);cur=[]}});if(cur.length)ch.push(cur);
+ const wi=Math.min(words.length-1,Math.floor(lt/sd*words.length));const c=ch.find(c=>c.includes(wi))||ch[ch.length-1];
+ capEl.style.top=(r.capTop||1480)+'px';
+ capEl.innerHTML=c.filter(i=>i<=wi).map(i=>`<span class="${i<=wi?'on':''} ${keys.some(k=>words[i].toLowerCase().replace(/[.,¿?¡!]/g,'').startsWith(k))?'k':''}">${words[i]}</span>`).join('')};
+Promise.all(['700 100px Unbounded','700 40px Inst'].map(f=>document.fonts.load(f))).then(()=>document.fonts.ready).then(()=>{seek(0);window.READY=1});
+</script></body></html>
