@@ -11,7 +11,19 @@ Instagram i TikTok @bekora.bk, connectats a Metricool (blogId 7563738, zona Euro
 - Contacte: bekora.es · WhatsApp 642 268 366 · @bekora.bk.
 - Colors de marca #16171B / #F4F4F6 / verd #5EE08F; fons clars i un color d'accent diferent a cada vídeo. Fonts Unbounded, Instrument Sans, JetBrains Mono.
 
-## FORMAT ACTUAL (des del 10-11-2026): DADA CURIOSA
+## FORMAT ACTUAL (des del 24-11-2026): HISTÒRIES DE NINOTS ANIMATS
+Cada vídeo és una història curta (20-30 s) amb ninots 2D, TOTS DIFERENTS entre ells:
+1. GANXO "de dopamina" al primer segon, cada vídeo d'un tipus diferent: POV, "Mira què li passa a...", pregunta impossible, abans/després tallat, compte enrere, fracàs exagerat, gir inesperat (disc ratllat), etc.
+2. El problema del negoci explicat amb humor (2-3 escenes curtes amb gags visuals).
+3. PUNT CRÍTIC: flaix, fons fosc i la veu diu "Hasta que llegó a Bekora. Aquí puedes..." (CA: "Fins que va arribar a Bekora. Aquí pots...") + el que ofereix Bekora (web, sortir a Google, WhatsApp, reserves/encàrrecs, demo 10 dies gratis). La web es construeix al mòbil.
+4. Final feliç + pregunta al client ("I el teu negoci...?") + bekora.es.
+- Personatge, negoci, colors i ganxo diferents a cada vídeo. Fets: t1 pastisseria (Marta), t2 taller (Pere), t3 perruqueria (Laia), t4 restaurant (Toni), t5 floristeria (Núria). Idees per fer: gimnàs, forn, fisio, botiga de roba, ferreteria, autoescola, clínica dental, botiga d'animals, fruiteria, electricista, assessoria, bar de tapes, llibreria, òptica.
+- Les històries són inventades i es veu que són dibuixos: cap xifra inventada. Si es posa una dada, amb font.
+- Sistema: build/toon.html (motor + ajudants H.person, H.shop, H.phone, H.search, H.sticker, H.bubble, H.web, H.critical, H.endCard, H.confetti, H.tumble...), build/toons.js (escenes de cada història, TOON.tN = [funcions per segment]), build/cfg.js (tN: seg[] amb cap.es = veu, cap.ca = subtítol, fx = efectes de so [[segons,'tipus']], flash/sfx). Tipus de so: pop, swish, scratch, type, buzz, steps, wind, fail, rise, boom, ding, cheer.
+- Veu: python3 src/pvvo.py tN. Render: python3 src/toonmix.py tN music_toon.py <variant 0-4> (variant diferent per a cada vídeo de la setmana: canvia tempo i to). MÚSICA SUAU I DISCRETA (ja està baixa a la mescla; no pujar-la).
+- Revisa fotogrames de cada escena (render.py stills) abans de renderitzar: res tallat, ninots no tapats, rètols dins la pantalla.
+
+## FORMAT ANTERIOR: DADA CURIOSA (des del 10-11-2026, ara només de reserva)
 La gent passava els vídeos en mig segon perquè semblaven anuncis. Ara:
 1. Fotograma 0: una pregunta amb una dada que sorprèn i una animació simple ja visible (graella de 100, persones, comptador). Res de logo ni venda.
 2. La dada real, SEMPRE amb font a la pantalla (camp src) i al text. Si la font és d'un altre país, dir-ho (EUA...).
