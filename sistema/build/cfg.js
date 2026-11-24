@@ -133,5 +133,37 @@ t1:{seg:[
  {fx:[[0.5,'wind'],[1.2,'fail']],cap:{es:'Probó con folletos. Mala idea.',ca:'Va provar amb fulletons. Mala idea.'},key:{es:['mala','idea.'],ca:['mala','idea.']}},
  {flash:1,sfx:'rise',fx:[[0.1,'boom'],[1.1,'pop'],[1.4,'ding'],[1.7,'ding'],[2.0,'ding']],cap:{es:'Hasta que llegó a Bekora. Aquí puedes tener tu web, salir en Google y probarla diez días gratis.',ca:'Fins que va arribar a Bekora. Aquí pots tenir la teva web, sortir a Google i provar-la 10 dies gratis.'},key:{es:['bekora.','gratis.'],ca:['bekora.','gratis.']}},
  {fx:[[0.1,'cheer']],cap:{es:'Ahora la cola llega hasta la esquina.',ca:'Ara la cua arriba fins a la cantonada.'},key:{es:['esquina.'],ca:['cantonada.']}},
- {fx:[[0.5,'pop']],cap:{es:'¿Y tu negocio, sale en Google?',ca:'I el teu negoci, surt a Google?'},key:{es:['google?'],ca:['google?']}}]}
+ {fx:[[0.5,'pop']],cap:{es:'¿Y tu negocio, sale en Google?',ca:'I el teu negoci, surt a Google?'},key:{es:['google?'],ca:['google?']}}]},
+t2:{seg:[
+ {fx:[[0.1,'pop'],[1.2,'buzz']],key:{es:['otra'],ca:['altra']},cap:{es:'Eres mecánico. Y suena el teléfono. Otra vez.',ca:'Ets mecànic. I sona el telèfon. Una altra vegada.'}},
+ {fx:[[0.2,'pop'],[0.55,'pop'],[0.9,'pop'],[1.25,'pop'],[1.6,'pop']],cap:{es:'Que si abrís el sábado, que cuánto cuesta, que dónde estáis.',ca:'Que si obriu dissabte, que quant costa, que on sou.'}},
+ {fx:[[0.9,'boom']],key:{es:['coche.'],ca:['cotxe.']},cap:{es:'Y tú, debajo de un coche.',ca:'I tu, sota un cotxe.'}},
+ {fx:[[0.4,'steps']],key:{es:['otro'],ca:['altre']},cap:{es:'Nadie contesta. Así que llaman a otro taller.',ca:'Ningú contesta. Així que truquen a un altre taller.'}},
+ {flash:1,sfx:'rise',fx:[[0.1,'boom'],[1.4,'ding'],[1.7,'ding'],[2.0,'ding']],key:{es:['bekora.'],ca:['bekora.']},cap:{es:'Hasta que llegó a Bekora. Aquí puedes tener una web que responde por ti: servicios, horario y cita por WhatsApp.',ca:'Fins que va arribar a Bekora. Aquí pots tenir una web que respon per tu: serveis, horari i hora per WhatsApp.'}},
+ {fx:[[0.3,'ding'],[0.65,'ding'],[1.0,'ding']],key:{es:['solas.'],ca:['soles.']},cap:{es:'Ahora las citas llegan solas.',ca:'Ara les hores arriben soles.'}},
+ {fx:[[0.5,'pop']],cap:{es:'¿Y tu teléfono, para alguna vez?',ca:'I el teu telèfon, para mai?'}}]},
+t3:{seg:[
+ {fx:[[0.1,'pop']],key:{es:['once.'],ca:['onze.']},cap:{es:'Mira lo que le pasa a Laia cada noche a las once.',ca:'Mira què li passa a la Laia cada nit a les onze.'}},
+ {fx:[[0.2,'pop'],[0.6,'pop'],[1.0,'pop'],[1.4,'pop']],cap:{es:'Mensajes y más mensajes: que si tiene hora, que cuánto cuesta un tinte.',ca:'Missatges i més missatges: que si té hora, que quant costa un tint.'}},
+ {fx:[[1.0,'fail']],key:{es:['duerme'],ca:['adorm']},cap:{es:'Contesta tan tarde que se duerme con el móvil en la mano.',ca:'Contesta tan tard que s’adorm amb el mòbil a la mà.'}},
+ {fx:[[0.2,'wind']],key:{es:['vacías.'],ca:['buides.']},cap:{es:'Y el lunes, las sillas vacías.',ca:'I dilluns, les cadires buides.'}},
+ {flash:1,sfx:'rise',fx:[[0.1,'boom'],[1.4,'ding'],[1.7,'ding'],[2.0,'ding']],key:{es:['bekora.'],ca:['bekora.']},cap:{es:'Hasta que llegó a Bekora. Aquí puedes tener una web con precios, horario y reservas, abierta las veinticuatro horas.',ca:'Fins que va arribar a Bekora. Aquí pots tenir una web amb preus, horari i reserves, oberta les 24 hores.'}},
+ {fx:[[0.1,'cheer']],key:{es:['duerme.'],ca:['dorm.']},cap:{es:'Ahora reservan mientras ella duerme.',ca:'Ara reserven mentre ella dorm.'}},
+ {fx:[[0.5,'pop']],cap:{es:'¿Y tú, a qué hora contestas?',ca:'I tu, a quina hora contestes?'}}]},
+t4:{seg:[
+ {fx:[[0.1,'pop']],key:{es:['carta'],ca:['carta']},cap:{es:'¿Qué pone aquí? Es la carta del restaurante de Toni.',ca:'Què hi diu, aquí? És la carta del restaurant d’en Toni.'}},
+ {fx:[[0.1,'swish'],[1.0,'fail']],key:{es:['zoom...'],ca:['zoom...']},cap:{es:'Haces zoom... y sigue sin leerse.',ca:'Fas zoom... i encara no es llegeix.'}},
+ {fx:[[0.2,'pop']],key:{es:['instagram.'],ca:['instagram.']},cap:{es:'Toni lo tiene claro: la carta está en Instagram.',ca:'En Toni ho té clar: la carta és a Instagram.'}},
+ {fx:[[0.5,'steps']],key:{es:['lado.'],ca:['costat.']},cap:{es:'Y el cliente se va al de al lado.',ca:'I el client se’n va al del costat.'}},
+ {flash:1,sfx:'rise',fx:[[0.1,'boom'],[1.4,'ding'],[1.7,'ding'],[2.0,'ding']],key:{es:['bekora.'],ca:['bekora.']},cap:{es:'Hasta que llegó a Bekora. Aquí puedes tener tu carta en una web, con horario y reservas por WhatsApp.',ca:'Fins que va arribar a Bekora. Aquí pots tenir la carta en una web, amb horari i reserves per WhatsApp.'}},
+ {fx:[[0.1,'cheer']],key:{es:['sola.'],ca:['sola.']},cap:{es:'Ahora la terraza se llena sola.',ca:'Ara la terrassa s’omple sola.'}},
+ {fx:[[0.5,'pop']],cap:{es:'¿Tu carta se puede leer?',ca:'La teva carta es pot llegir?'}}]},
+t5:{seg:[
+ {fx:[[0.1,'pop'],[2.2,'scratch']],key:{es:['medio?'],ca:['entremig?']},cap:{es:'Antes y después de la floristería de Núria. Espera, ¿qué pasó en medio?',ca:'Abans i després de la floristeria de la Núria. Espera, què va passar entremig?'}},
+ {fx:[[0.2,'pop']],key:{es:['aniversario.'],ca:['aniversari.']},cap:{es:'Domingo, diez de la noche. Mañana es su aniversario.',ca:'Diumenge, deu de la nit. Demà és el seu aniversari.'}},
+ {fx:[[0.3,'buzz']],key:{es:['cerrada.'],ca:['tancada.']},cap:{es:'La floristería, cerrada. Y no hay forma de encargar nada.',ca:'La floristeria, tancada. I no hi ha manera d’encarregar res.'}},
+ {fx:[[0.4,'fail']],key:{es:['gasolinera.'],ca:['benzinera.']},cap:{es:'Acabó comprando flores en la gasolinera.',ca:'Va acabar comprant flors a la benzinera.'}},
+ {flash:1,sfx:'rise',fx:[[0.1,'boom'],[1.4,'ding'],[1.7,'ding'],[2.0,'ding']],key:{es:['bekora.'],ca:['bekora.']},cap:{es:'Hasta que Núria llegó a Bekora. Aquí puedes tener una web para recibir encargos a cualquier hora.',ca:'Fins que la Núria va arribar a Bekora. Aquí pots tenir una web per rebre encàrrecs a qualsevol hora.'}},
+ {fx:[[0.1,'cheer']],key:{es:['noche.'],ca:['nit.']},cap:{es:'Ahora los encargos llegan hasta de noche.',ca:'Ara els encàrrecs arriben fins i tot de nit.'}},
+ {fx:[[0.5,'pop']],cap:{es:'¿Y si te buscan de noche?',ca:'I si et busquen de nit?'}}]}
 };

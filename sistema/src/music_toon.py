@@ -2,7 +2,8 @@ import sys, json, numpy as np
 from scipy.signal import butter, sosfilt
 from scipy.io import wavfile
 m=json.load(open(sys.argv[1])); out=sys.argv[2]
-SR=44100; BPM=112; B=60/BPM; DUR=m['dur']+.6; N=int(DUR*SR); L=np.zeros(N); R=np.zeros(N); rng=np.random.default_rng(3)
+VAR=int(sys.argv[3]) if len(sys.argv)>3 else 0
+SR=44100; BPM=[96,88,104,92,100][VAR%5]; B=60/BPM; DUR=m['dur']+.6; N=int(DUR*SR); L=np.zeros(N); R=np.zeros(N); rng=np.random.default_rng(3+VAR)
 def f(x,k,fr): return sosfilt(butter(2,fr,k,fs=SR,output='sos'),x)
 def tt(d): return np.arange(int(d*SR))/SR
 def put(s,t,g=1.,pan=0.):
@@ -21,14 +22,15 @@ def kick(): t=tt(.25); return np.sin(2*np.pi*np.cumsum(55+100*np.exp(-t/.02))/SR
 def clap(): t=tt(.15); return f(rng.standard_normal(len(t)),'bandpass',[1000,5000])*np.exp(-t/.04)*.18
 def shk(): t=tt(.06); return f(rng.standard_normal(len(t)),'bandpass',[6000,12000])*np.sin(np.pi*t/.06)**2*.05
 def bass(fr): t=tt(.3); return np.sin(2*np.pi*fr*t)*np.exp(-t/.15)*.3
-prog=[(98,[392,493.9,587.3]),(130.8,[392,523.3,659.3]),(110,[440,523.3,659.3]),(146.8,[440,587.3,740])]
-mel=[784,880,987.8,880,784,659.3,587.3,659.3]
+TR=[1,0.891,1.122,0.944,1.059][VAR%5]
+prog=[(r*TR,[x*TR for x in c]) for r,c in [(98,[392,493.9,587.3]),(130.8,[392,523.3,659.3]),(110,[440,523.3,659.3]),(146.8,[440,587.3,740])]]
+mel=[x*TR for x in [784,880,987.8,880,784,659.3,587.3,659.3]]
 for b in range(int(DUR/(4*B))+1):
     b0=b*4*B; r,ch=prog[b%4]
-    for e in range(4): put(kick(),b0+e*B,.8); put(bass(r if e%2==0 else r*1.5),b0+e*B+B/2)
-    put(clap(),b0+B); put(clap(),b0+3*B)
-    for e in range(8): put(shk(),b0+e*B/2,1,-.3)
-    for bt in (0,.5,1.5,2,2.5,3.5):
+    for e in (0,2): put(kick(),b0+e*B,.35)
+    for e in range(4): put(bass(r if e%2==0 else r*1.5),b0+e*B+B/2)
+    put(clap(),b0+3*B,.4)
+    for bt in (0,1.5,2.5):
         for k,fr in enumerate(ch): put(uke(fr),b0+bt*B+k*.015,.9,(k-1)*.25)
     if b%2: 
         for k,fr in enumerate(mel): put(glock(fr),b0+k*B/2,1,.3)

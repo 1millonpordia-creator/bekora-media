@@ -12,7 +12,7 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#fff}
 #cap span.on{opacity:1}#cap span.k{color:#FFD23F}
 #flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:30}
 </style></head><body><div id="stage"></div><div id="cap"></div><div id="flash"></div>
-<script src="cfg.js"></script><script src="durs.js"></script><script src="toons.js"></script>
+<script>window.H={};</script><script src="cfg.js"></script><script src="durs.js"></script><script src="toons.js"></script>
 <script>
 const [LANG,ID]=(location.hash||'#es-t1').slice(1).split('-');
 const C=CFG[ID],SEG=C.seg,DU=(window.DURS&&window.DURS[ID])||SEG.map(s=>s.d||3),SC=TOON[ID];
@@ -22,7 +22,7 @@ const cl=x=>Math.min(1,Math.max(0,x)),P=(t,a,b)=>cl((t-a)/(b-a));
 const oe=x=>x>=1?1:1-Math.pow(2,-10*x),io=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
 const sp=x=>x<=0?0:x>=1?1:1-Math.exp(-6*x)*Math.cos(9*x);
 const lerp=(a,b,k)=>a+(b-a)*k;
-window.H={cl,P,oe,io,sp,lerp,T,LANG};
+Object.assign(H,{cl,P,oe,io,sp,lerp,T,LANG});
 // mouth shapes
 function mouth(type,t){if(type==='talk'){const k=Math.floor(t*11)%4;type=['o','smile','flat','open'][k]}
  return {smile:'<path d="M-26 0 Q0 26 26 0" stroke="#16171B" stroke-width="7" fill="none" stroke-linecap="round"/>',
